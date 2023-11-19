@@ -1,0 +1,4 @@
+<label for="name">Name: </label>
+<input id="name" type="text" [formControl]="name">
+
+<app-list [onItemClick]="onSearchItemClickHandler()" [cvs]="(searchResult$|async)??[]" *ngIf="searchResult$"></app-list>

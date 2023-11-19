@@ -21,9 +21,11 @@ import { DetailCvComponent } from "./cv/detail-cv/detail-cv.component";
 import { NF404Component } from "./components/nf404/nf404.component";
 import { TestformComponent } from "./components/testform/testform.component";
 import { ToastrModule } from "ngx-toastr";
-import {EmbaucheComponent} from "./cv/embauche/embauche.component";
+import { EmbaucheComponent } from "./cv/embauche/embauche.component";
 import { LoginComponent } from './login/login.component';
 import { SpecificCvComponent } from './cv/specific-cv/specific-cv.component';
+import { SearchComponent } from './cv/search/search.component';
+import { DisplayComponent } from './cv/display/display.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { SpecificCvComponent } from './cv/specific-cv/specific-cv.component';
     EmbaucheComponent,
     LoginComponent,
     SpecificCvComponent,
+    SearchComponent,
+    DisplayComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,4 +64,4 @@ import { SpecificCvComponent } from './cv/specific-cv/specific-cv.component';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

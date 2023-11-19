@@ -10,9 +10,13 @@ import { Personne } from "../model/personne";
 export class ListComponent {
   @Input() cvs: Personne[] = [];
   isHidden = true;
+
+  @Input()
+  onItemClick: (x: Personne) => void = () => { }
+
   /*   @Output()
   forwardCv = new EventEmitter(); */
-  constructor() {}
+  constructor() { }
   showHide() {
     this.isHidden = !this.isHidden;
   }

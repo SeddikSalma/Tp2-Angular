@@ -1,8 +1,8 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
-import {Cv} from "../model/cv";
-import {ToastrService} from "ngx-toastr";
+import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
+import { Cv } from "../model/cv";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: 'app-specific-cv',
@@ -11,21 +11,20 @@ import {ToastrService} from "ngx-toastr";
 })
 export class SpecificCvComponent implements OnInit {
   id: string | null = null;
-  cv: Cv | null  = new Cv();
-  constructor(private route: ActivatedRoute) {}
+  cv: Cv | null = new Cv();
+  constructor(private route: ActivatedRoute) { }
   private http = inject(HttpClient);
-   router : Router = inject(Router);
+  router: Router = inject(Router);
   private toast = inject(ToastrService);
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id')
     this.http.get<Cv>(`https://apilb.tridevs.net/api/personnes/${this.id}`).subscribe(
       (cv) => {
-        console.log(cv)
         this.cv = cv;
       },
       (error) => {
-        this.cv= null;
+        this.cv = null;
         this.toast.error('Erreur lors de la récupération du cv');
       }
     );

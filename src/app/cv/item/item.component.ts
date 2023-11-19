@@ -15,10 +15,17 @@ export class ItemComponent {
     required: true,
   })
   cv: Personne | null = null;
+
+  @Input({
+    required: true
+  })
+  onClickHandler: (x: Personne) => void = () => { }
+
   @Output()
   selectCv = new EventEmitter<Personne>();
-  constructor(private cvService: CvService) {}
+
   onSelectCv() {
-    if (this.cv) this.cvService.selectCv(this.cv);
+    if (this.cv) this.onClickHandler(this.cv)
+    // this.cvService.selectCv(this.cv);
   }
 }
