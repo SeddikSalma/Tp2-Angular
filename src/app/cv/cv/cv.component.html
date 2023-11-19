@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="alert alert-warning">
+    Le nombre de cv sélectionné est : {{ nb }}
+  </div>
+
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link " aria-current="page" (click)="changeSelected(true)" [ngClass]="{'active':SelectedJunior}">Junior</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-link "  tabindex="-1" (click)="changeSelected(false)"  [ngClass]="{'active':!SelectedJunior}">Senior</a>
+    </li>
+   
+  </ul>
+
+  
+  <div class="col">
+    <app-list [cvs]="(cvsJ$|async)??[]" *ngIf="SelectedJunior"></app-list>
+    <app-list [cvs]="(cvsS$|async)??[]" *ngIf="!SelectedJunior"></app-list>
+  </div>
+  <div class="col">
+    <app-card></app-card>
+  </div>
+  <app-embauche></app-embauche>
+</div>
