@@ -16,7 +16,7 @@ export class MergeComponent {
   val1$: Observable<number>
   val2$: Observable<number>
 
-  merge$: Observable<[string|null, string|null]>
+  merge$: Observable<number>
 
   constructor(){
     this.val1$ = this.input1.valueChanges.pipe(
