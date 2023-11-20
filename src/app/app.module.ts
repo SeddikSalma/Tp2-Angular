@@ -27,6 +27,7 @@ import { SpecificCvComponent } from './cv/specific-cv/specific-cv.component';
 import { SearchComponent } from './cv/search/search.component';
 import { DisplayComponent } from './cv/display/display.component';
 import { MergeComponent } from './merge/merge.component';
+import { ProductComponent } from './product/product.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { MergeComponent } from './merge/merge.component';
     SearchComponent,
     DisplayComponent,
     MergeComponent,
+    ProductComponent,
   ],
   imports: [
     BrowserModule,
