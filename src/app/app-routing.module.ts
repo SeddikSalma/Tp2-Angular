@@ -5,13 +5,14 @@ import { HomeComponent } from './components/home/home.component';
 import { RouterParamComponent } from './components/router-param/router-param.component';
 import { FrontComponent } from './components/front/front.component';
 import { NF404Component } from './components/nf404/nf404.component';
-import {LoginComponent} from "./login/login.component";
-import {Ex1Component} from "./ex1/ex1.component";
-import {Ex2Component} from "./ex2/ex2.component";
-import {loginGuard} from "./login/login.guard";
-import {SpecificCvComponent} from "./cv/specific-cv/specific-cv.component";
-import  {MergeComponent} from "./merge/merge.component"
-import  {ProductComponent} from "./product/product.component"
+import { LoginComponent } from "./login/login.component";
+import { Ex1Component } from "./ex1/ex1.component";
+import { Ex2Component } from "./ex2/ex2.component";
+import { loginGuard } from "./login/login.guard";
+import { SpecificCvComponent } from "./cv/specific-cv/specific-cv.component";
+import { MergeComponent } from "./merge/merge.component"
+import { ProductComponent } from "./product/product.component"
+import { cvsResolver } from './resolvers/cvs.resolver';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,14 +20,26 @@ const routes: Routes = [
     path: '',
     component: FrontComponent,
     children: [
-      { path: 'cv', component: CvComponent },
-      {path:'cv/:id',component:SpecificCvComponent},
+      {
+        path: 'cv',
+        component: CvComponent,
+        resolve: { cvs: cvsResolver },
+        // children: [
+        //   {
+        //     path: ':id',
+        //     component: SpecificCvComponent,
+        //     resolve: {
+        //     }
+        //   }
+        // ]
+      },
+      { path: 'cv/:id', component: SpecificCvComponent },
       { path: 'route/:quelquechose', component: RouterParamComponent },
-      { path: 'login',component:LoginComponent ,canActivate : [loginGuard]},
-      { path: 'ex1',component:Ex1Component },
-      { path: 'ex2',component:Ex2Component },
-      { path: 'merge',component:MergeComponent },
-      { path: 'product',component:ProductComponent },
+      { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
+      { path: 'ex1', component: Ex1Component },
+      { path: 'ex2', component: Ex2Component },
+      { path: 'merge', component: MergeComponent },
+      { path: 'product', component: ProductComponent },
 
 
     ],
@@ -39,4 +52,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -1,10 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import { Cv } from "../model/cv";
 import { CvService } from "../services/cv.service";
 import { Observable, distinctUntilChanged, map } from "rxjs";
 import { EmbaucheService } from "../services/embauche.service";
 import { Personne } from "../model/personne";
 import { ToastrService } from "ngx-toastr";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-cv",
@@ -13,10 +14,12 @@ import { ToastrService } from "ngx-toastr";
 })
 export class CvComponent {
   nb = 0;
-  everybody$: Observable<Personne[]>;
+  allPersonnes: Personne[];
+  private cvService: CvService = inject(CvService)
+  private router: ActivatedRoute = inject(ActivatedRoute)
 
-  constructor(private cvService: CvService, private toastr: ToastrService) {
-    this.everybody$ = this.cvService.getPersonnesFromApi();
+  constructor() {
+    this.allPersonnes = this.router.snapshot.data['cvs']
 
     this.cvService.selectCv$
       .pipe(distinctUntilChanged())
