@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { CvService } from '../cv/services/cv.service';
 import { inject } from '@angular/core';
 
-export const specificCvResolver: ResolveFn<Personne | undefined> = (route, state) => {
+export const specificCvResolver: ResolveFn<Observable<Personne>> = (route, state) => {
   const cvService: CvService = inject(CvService)
   return cvService.getPersonne(parseInt(route.params['id']));
 };

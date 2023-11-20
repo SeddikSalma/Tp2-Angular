@@ -13,6 +13,8 @@ import { SpecificCvComponent } from "./cv/specific-cv/specific-cv.component";
 import { MergeComponent } from "./merge/merge.component"
 import { ProductComponent } from "./product/product.component"
 import { cvsResolver } from './resolvers/cvs.resolver';
+import { MasterComponentComponent } from './master-component/master-component.component';
+import { specificCvResolver } from './resolvers/specific-cv.resolver';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,13 +29,27 @@ const routes: Routes = [
         children: [
           {
             path: 'list',
-            component: SpecificCvComponent,
-            resolve: {
-            }
+            children: [
+              {
+                path: '',
+                component: MasterComponentComponent,
+              },
+              {
+                path: ':id',
+                component: SpecificCvComponent,
+                resolve: {
+                  cv: specificCvResolver
+                }
+              }
+            ]
           }
         ]
       },
-      { path: 'cv/:id', component: SpecificCvComponent },
+      {
+        path: 'cv/:id', component: SpecificCvComponent, resolve: {
+          cv: specificCvResolver
+        }
+      },
       { path: 'route/:quelquechose', component: RouterParamComponent },
       { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
       { path: 'ex1', component: Ex1Component },

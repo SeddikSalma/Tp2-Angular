@@ -29,6 +29,7 @@ import { DisplayComponent } from './cv/display/display.component';
 import { MergeComponent } from './merge/merge.component';
 import { ProductComponent } from './product/product.component';
 import { ProductDisplayComponent } from './product/product-display/product-display.component';
+import { MasterComponentComponent } from './master-component/master-component.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { ProductDisplayComponent } from './product/product-display/product-displ
     MergeComponent,
     ProductComponent,
     ProductDisplayComponent,
+    MasterComponentComponent,
   ],
   imports: [
     BrowserModule,

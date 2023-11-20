@@ -3,31 +3,21 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { Cv } from "../model/cv";
 import { ToastrService } from "ngx-toastr";
+import { Personne } from '../model/personne';
 
 @Component({
   selector: 'app-specific-cv',
   templateUrl: './specific-cv.component.html',
   styleUrls: ['./specific-cv.component.css']
 })
-export class SpecificCvComponent implements OnInit {
-  id: string | null = null;
-  cv: Cv | null = new Cv();
-  constructor(private route: ActivatedRoute) { }
+export class SpecificCvComponent {
+  cv: Personne
   private http = inject(HttpClient);
   router: Router = inject(Router);
   private toast = inject(ToastrService);
 
-  ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id')
-    this.http.get<Cv>(`https://apilb.tridevs.net/api/personnes/${this.id}`).subscribe(
-      (cv) => {
-        this.cv = cv;
-      },
-      (error) => {
-        this.cv = null;
-        this.toast.error('Erreur lors de la récupération du cv');
-      }
-    );
+  constructor(private route: ActivatedRoute) {
+    this.cv = this.route.snapshot.data['cv']
   }
 
   deleteCv(id: number) {

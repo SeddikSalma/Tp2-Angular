@@ -14,7 +14,18 @@ export class CvService {
   }
 
   getPersonne(id: number) {
-    return this.cvs.find((p) => p.id == id)
+    return this.httpClient.get<Personne>(`https://apilb.tridevs.net/api/personnes/${id}`)
+
+    // .subscribe(
+    //   (cv) => {
+    //     this.cv = cv;
+    //   },
+    //   (error) => {
+    //     this.cv = null;
+    //     this.toast.error('Erreur lors de la récupération du cv');
+    //   }
+    // );
+    // return this.cvs.find((p) => p.id == id)
   }
 
   getPersonnesFromApi(): Observable<Personne[]> {
