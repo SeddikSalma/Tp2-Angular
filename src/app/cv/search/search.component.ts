@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Observable, debounceTime, distinctUntilChanged, tap } from 'rxjs';
+import { Observable, debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs';
 import { Personne } from '../model/personne';
 import { CvService } from '../services/cv.service';
 import { Router } from '@angular/router';
@@ -16,14 +16,13 @@ export class SearchComponent {
   router = inject(Router);
 
   constructor(private cvService: CvService) {
-    this.name.valueChanges.pipe(
+    this.searchResult$ = this.name.valueChanges.pipe(
       debounceTime(1000),
       distinctUntilChanged(),
-      tap((search) => {
-        if (!search) return
-        this.searchResult$ = this.cvService.searchPersonnes(search)
-      }),
-    ).subscribe()
+      switchMap((search) => {
+        return this.cvService.searchPersonnes(search ?? "")
+      })
+    )
   }
 
   onSearchItemClickHandler() {
