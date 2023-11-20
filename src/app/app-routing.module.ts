@@ -24,14 +24,14 @@ const routes: Routes = [
         path: 'cv',
         component: CvComponent,
         resolve: { cvs: cvsResolver },
-        // children: [
-        //   {
-        //     path: ':id',
-        //     component: SpecificCvComponent,
-        //     resolve: {
-        //     }
-        //   }
-        // ]
+        children: [
+          {
+            path: 'list',
+            component: SpecificCvComponent,
+            resolve: {
+            }
+          }
+        ]
       },
       { path: 'cv/:id', component: SpecificCvComponent },
       { path: 'route/:quelquechose', component: RouterParamComponent },
