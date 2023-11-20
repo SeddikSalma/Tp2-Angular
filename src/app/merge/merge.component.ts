@@ -11,8 +11,11 @@ export class MergeComponent {
   input1 = new FormControl('');
   input2 = new FormControl('');
 
-  focusSubject = new Subject<number>()
-  focus$ = this.focusSubject.asObservable()
+  focus1Subject = new Subject<number>()
+  focus1$ = this.focus1Subject.asObservable()
+
+  focus2Subject = new Subject<number>()
+  focus2$ = this.focus2Subject.asObservable()
 
   val1Subject = new Subject<number>()
   val1$: Observable<number> = this.val1Subject.asObservable()
@@ -25,21 +28,19 @@ export class MergeComponent {
   reduce$: Observable<number>
 
   constructor() {
-    this.focus$.pipe(
+    this.focus1$.pipe(
       withLatestFrom(this.input1.valueChanges),
       map(([_, vals]) => {
         return parseInt(vals ?? "0")
       }),
-      distinctUntilChanged(),
       tap((value) => this.val1Subject.next(value))
     ).subscribe()
 
-    this.focus$.pipe(
+    this.focus2$.pipe(
       withLatestFrom(this.input2.valueChanges),
       map(([_, vals]) => {
         return parseInt(vals ?? "0")
       }),
-      distinctUntilChanged(),
       tap((value) => this.val2Subject.next(value))
     ).subscribe()
 
@@ -65,8 +66,12 @@ export class MergeComponent {
     this.val2Subject.complete()
   }
 
-  focusOut() {
-    this.focusSubject.next(1)
+  focus1Out() {
+    this.focus1Subject.next(1)
+  }
+
+  focus2Out() {
+    this.focus2Subject.next(1)
   }
 }
 
