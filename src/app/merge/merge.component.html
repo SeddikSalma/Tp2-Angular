@@ -1,0 +1,8 @@
+ <input type="number" class="form-control" [formControl]="input1" (focusout)="focusOut($event)" value="0">
+ <button type="submit" class="btn btn-danger">Terminate Stream 1</button>
+ <input type="number" class="form-control" [formControl]="input2" (focusout)="focusOut($event)" value="0" >
+ <button type="submit" class="btn btn-danger" >Terminate Stream 2</button>
+
+ <p>Merge : <span></span></p>
+ <p>Scan : <span></span></p>
+ <p>Reduce : <span></span></p>

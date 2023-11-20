@@ -10,6 +10,7 @@ import {Ex1Component} from "./ex1/ex1.component";
 import {Ex2Component} from "./ex2/ex2.component";
 import {loginGuard} from "./login/login.guard";
 import {SpecificCvComponent} from "./cv/specific-cv/specific-cv.component";
+import  {MergeComponent} from "./merge/merge.component"
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: 'login',component:LoginComponent ,canActivate : [loginGuard]},
       { path: 'ex1',component:Ex1Component },
       { path: 'ex2',component:Ex2Component },
+      { path: 'merge',component:MergeComponent },
 
 
     ],

@@ -46,6 +46,13 @@
         <a
           class="nav-link"
           aria-current="page"
+          [routerLink]="['merge']"
+          routerLinkActive="active text-primary"
+          >merge</a
+        >
+        <a
+          class="nav-link"
+          aria-current="page"
           [routerLink]="['login']"
           *ngIf="loggedOut$|async"
           routerLinkActive="active text-primary"
