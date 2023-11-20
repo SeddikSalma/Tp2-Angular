@@ -1,10 +1,5 @@
-<a href="#" class="btn btn-primary">Go somewhere</a>
+<button class="btn btn-primary" (click)="loadMore()">Load More</button>
 
 <div class="container">
-<div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>    
-    </div>
-  </div>
+  <app-product-display [products-list]="(products$ | async) ?? []"></app-product-display>
 </div>

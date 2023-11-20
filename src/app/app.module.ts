@@ -28,6 +28,7 @@ import { SearchComponent } from './cv/search/search.component';
 import { DisplayComponent } from './cv/display/display.component';
 import { MergeComponent } from './merge/merge.component';
 import { ProductComponent } from './product/product.component';
+import { ProductDisplayComponent } from './product/product-display/product-display.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ProductComponent } from './product/product.component';
     DisplayComponent,
     MergeComponent,
     ProductComponent,
+    ProductDisplayComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ProductService } from '../cv/services/product.service';
+import { tap } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product',
@@ -6,5 +9,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent {
+  toaster: ToastrService = inject(ToastrService)
+  productService: ProductService = inject(ProductService);
+  products$ = this.productService.products$.pipe()
 
+  loadMore() {
+    this.productService.loadMore().pipe(
+      tap((result) => {
+        if (!result) {
+          this.toaster.error("No more products")
+        }
+      })
+    ).subscribe()
+  }
 }
