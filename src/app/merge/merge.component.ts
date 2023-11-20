@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, Subject, combineLatest, distinctUntilChanged, filter, map, merge, tap, withLatestFrom } from 'rxjs';
+import { Observable, Subject, combineLatest, distinctUntilChanged, filter, map, merge, scan, tap, withLatestFrom } from 'rxjs';
 
 @Component({
   selector: 'app-merge',
@@ -17,6 +17,7 @@ export class MergeComponent {
   val2$: Observable<number>
 
   merge$: Observable<number>
+  scan$: Observable<number>
 
   constructor() {
     this.val1$ = this.focus$.pipe(
@@ -35,10 +36,13 @@ export class MergeComponent {
       distinctUntilChanged()
     )
 
-
     this.merge$ = merge(
       this.val1$,
       this.val2$,
+    )
+
+    this.scan$ = this.merge$.pipe(
+      scan((prev, curr) => curr + prev, 0)
     )
   }
 
