@@ -4,6 +4,8 @@ import { HttpClient } from "@angular/common/http";
 import { Cv } from "../model/cv";
 import { ToastrService } from "ngx-toastr";
 import { Personne } from '../model/personne';
+import { CvService } from '../services/cv.service';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-specific-cv',
@@ -11,29 +13,33 @@ import { Personne } from '../model/personne';
   styleUrls: ['./specific-cv.component.css']
 })
 export class SpecificCvComponent {
-  cv: Personne
-  private http = inject(HttpClient);
+  //cv: Personne
+  cv$: Observable<Personne>
   router: Router = inject(Router);
   private toast = inject(ToastrService);
+  cvService = inject(CvService);
 
   constructor(private route: ActivatedRoute) {
-    this.cv = this.route.snapshot.data['cv']
+    this.cv$ = this.route.data.pipe(
+      map((data) => {
+        return data['cv']
+      })
+    )
   }
 
   deleteCv(id: number) {
-    this.http.delete(`https://apilb.tridevs.net/api/personnes/${id}`).subscribe(
-      () => {
+    this.cvService.deletePersonne(id).pipe(
+      tap(() => {
         this.toast.success('Cv supprimé avec succès');
         this.router.navigate(['/cv']);
-      },
-      (error) => {
+      }),
+      catchError(() => {
         this.toast.error('Erreur lors de la suppression du cv');
         setTimeout(() => {
           this.router.navigate(['/cv']);
         }, 2000);
-      }
-    );
+        return of()
+      })
+    ).subscribe()
   }
-
-
 }
