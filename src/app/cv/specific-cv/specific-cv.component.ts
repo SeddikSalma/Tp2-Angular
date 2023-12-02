@@ -1,7 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { HttpClient } from "@angular/common/http";
-import { Cv } from "../model/cv";
 import { ToastrService } from "ngx-toastr";
 import { Personne } from '../model/personne';
 import { CvService } from '../services/cv.service';
