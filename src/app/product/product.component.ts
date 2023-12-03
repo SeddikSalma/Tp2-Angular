@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
+
 export class ProductComponent {
   toaster: ToastrService = inject(ToastrService)
   productService: ProductService = inject(ProductService);

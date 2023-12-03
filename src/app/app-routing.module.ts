@@ -1,3 +1,4 @@
+import { AddCvComponent } from './add-cv/add-cv.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CvComponent } from './cv/cv/cv.component';
@@ -15,6 +16,7 @@ import { ProductComponent } from "./product/product.component"
 import { cvsResolver } from './resolvers/cvs.resolver';
 import { MasterComponentComponent } from './master-component/master-component.component';
 import { specificCvResolver } from './resolvers/specific-cv.resolver';
+import { CanDeactivateGuard } from './add-cv/can-deactivate.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,6 +27,7 @@ const routes: Routes = [
       {
         path: 'cv',
         children: [
+
           {
             path: '',
             component: CvComponent,
@@ -43,7 +46,7 @@ const routes: Routes = [
                 }
               }
             ]
-          }
+          },
         ]
       },
       {
@@ -51,13 +54,15 @@ const routes: Routes = [
           cv: specificCvResolver
         }
       },
-      { path: 'route/:quelquechose', component: RouterParamComponent },
+
+
+      { path: 'route/:quelquechose', component: RouterParamComponent,canDeactivate:[] },
       { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
       { path: 'ex1', component: Ex1Component },
       { path: 'ex2', component: Ex2Component },
       { path: 'merge', component: MergeComponent },
       { path: 'product', component: ProductComponent },
-
+      { path: 'add', component: AddCvComponent,canDeactivate:[CanDeactivateGuard] },
 
     ],
   },

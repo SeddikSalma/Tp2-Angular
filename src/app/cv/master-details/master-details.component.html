@@ -1,1 +1,5 @@
 <p>master-details works!</p>
+<div class="row">
+  <app-list [onItemClick]="onCvClick()" [cvs]="(cvs$|async)??[]"></app-list>
+  <router-outlet></router-outlet>
+</div>
