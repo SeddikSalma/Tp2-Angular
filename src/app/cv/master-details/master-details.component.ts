@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Personne } from '../model/personne';
+import { Observable, map } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-master-details',
@@ -7,4 +10,21 @@ import { Component } from '@angular/core';
 })
 export class MasterDetailsComponent {
 
+  cvs$: Observable<Personne[]>
+  route: ActivatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
+
+  constructor() {
+    this.cvs$ = this.route.data.pipe(
+      map((data) => {
+        return data['cvs']
+      })
+    )
+  }
+
+  onCvClick() {
+    return (cv: Personne) => {
+      this.router.navigate(['cv', 'list', cv.id])
+    }
+  }
 }

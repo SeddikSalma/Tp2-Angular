@@ -1,7 +1,7 @@
+import { Personne } from './../model/personne';
 import { Observable, Subject, catchError, of, tap } from "rxjs";
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Personne } from "../model/personne";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 @Injectable({ providedIn: "root" })
 export class CvService {
@@ -16,16 +16,6 @@ export class CvService {
   getPersonne(id: number) {
     return this.httpClient.get<Personne>(`https://apilb.tridevs.net/api/personnes/${id}`)
 
-    // .subscribe(
-    //   (cv) => {
-    //     this.cv = cv;
-    //   },
-    //   (error) => {
-    //     this.cv = null;
-    //     this.toast.error('Erreur lors de la récupération du cv');
-    //   }
-    // );
-    // return this.cvs.find((p) => p.id == id)
   }
 
   getPersonnesFromApi(): Observable<Personne[]> {
@@ -56,4 +46,33 @@ export class CvService {
   selectCv(cv: Personne) {
     this.selectCvSubject.next(cv);
   }
+
+  getPersonneById(id: number): Observable<Personne|null> {
+    const personne = this.cvs.find((personne) => {
+      return personne.id == id
+    });
+    if(personne != undefined)
+      return of(personne)
+    else
+      return of(null)
+  }
+
+  addPersonne(personne: Personne) {
+    personne.id = this.cvs.length + 1;
+    this.cvs.push(personne);
+  }
+  deletePersonne(item: Personne) {
+    let index = this.cvs.indexOf(item);
+    this.cvs.splice(index, 1);
+  }
+  updatePersonne(personne: Personne) {
+    console.log(personne);
+    return this.httpClient.put(this.link, personne);
+  }
+  findByName(name: string): Observable<Personne[]> {
+    const filter = `{"where":{"name":{"like":"%${name}%"}}}`;
+    const params = new HttpParams().set('filter', filter);
+    return this.httpClient.get<Personne[]>(this.link, {params});
+  }
+
 }

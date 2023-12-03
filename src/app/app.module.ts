@@ -1,3 +1,4 @@
+import { CanDeactivateGuard } from './add-cv/can-deactivate.guard';
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -30,6 +31,9 @@ import { MergeComponent } from './merge/merge.component';
 import { ProductComponent } from './product/product.component';
 import { ProductDisplayComponent } from './product/product-display/product-display.component';
 import { MasterComponentComponent } from './master-component/master-component.component';
+import { AddCvComponent } from './add-cv/add-cv.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -58,6 +62,8 @@ import { MasterComponentComponent } from './master-component/master-component.co
     ProductComponent,
     ProductDisplayComponent,
     MasterComponentComponent,
+    AddCvComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,9 +73,12 @@ import { MasterComponentComponent } from './master-component/master-component.co
     ToastrModule.forRoot(), // ToastrModule added
     HttpClientModule,
     ReactiveFormsModule,
+    MatDialogModule
   ],
   exports: [],
-  providers: [],
+  providers: [
+    CanDeactivateGuard
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
