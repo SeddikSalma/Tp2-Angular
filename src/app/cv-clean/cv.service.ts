@@ -1,4 +1,4 @@
-import { Observable, Subject, catchError, of, tap } from "rxjs";
+import { Observable, Subject, catchError, map, of, tap } from "rxjs";
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Personne } from "./personne.model";
@@ -14,11 +14,19 @@ export class CvService {
   }
 
   deletePersonne(id: number) {
-    return this.httpClient.delete(`https://apilb.tridevs.net/api/personnes/${id}`);
+    return this.httpClient.delete(`${this.link}/${id}`);
+  }
+
+  addPersonne(personne: Personne) {
+    return this.httpClient.post(this.link, personne).pipe(
+      map((resp) => {
+        return !!resp
+      })
+    )
   }
 
   getPersonne(id: number) {
-    return this.httpClient.get<Personne>(`https://apilb.tridevs.net/api/personnes/${id}`)
+    return this.httpClient.get<Personne>(`${this.link}/${id}`)
   }
 
   getPersonnesFromApi(): Observable<Personne[]> {
@@ -60,16 +68,16 @@ export class CvService {
       return of(null)
   }
 
-  addPersonne(personne: Personne) {
+  addPersonneOld(personne: Personne) {
     personne.id = this.cvs.length + 1;
     this.cvs.push(personne);
   }
+
   deletePersonneOld(item: Personne) {
     let index = this.cvs.indexOf(item);
     this.cvs.splice(index, 1);
   }
   updatePersonne(personne: Personne) {
-    console.log(personne);
     return this.httpClient.put(this.link, personne);
   }
   findByName(name: string): Observable<Personne[]> {

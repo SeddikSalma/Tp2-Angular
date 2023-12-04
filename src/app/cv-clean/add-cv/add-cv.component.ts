@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { NgForm, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CanComponentDeactivate } from './can-deactivate.guard';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 import { CvService } from '../cv.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -17,18 +18,27 @@ export class AddCvComponent implements CanComponentDeactivate {
 
   errorMessage = '';
   @ViewChild('formulaire', { static: true }) myForm?: NgForm;
+  private dialog: MatDialog = inject(MatDialog)
+  private cvService: CvService = inject(CvService)
+  private router: Router = inject(Router)
+  private toastr: ToastrService = inject(ToastrService)
 
-  constructor(
-    private dialog: MatDialog,
-    private cvService: CvService,
-    private router: Router
-  ) {
-
-  }
+  constructor() { }
 
   createcv(item: NgForm) {
-    this.cvService.addPersonne(item.value);
-    this.router.navigate(['cv']);
+    this.cvService.addPersonne(item.value).pipe(
+      catchError(() => {
+        return of(false)
+      }),
+      tap((resp) => {
+        if (resp) {
+          this.toastr.success("Added!")
+        } else {
+          this.toastr.error("Error adding element!")
+        }
+        this.router.navigate(['cv']);
+      }),
+    ).subscribe()
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
