@@ -1,4 +1,7 @@
 <form #formulaire="ngForm" (ngSubmit)="createcv(formulaire)">
+  <label for="cin">CIN</label>
+  <input #cinmodel="ngModel" required id="cin" type="text" ngModel name="cin" class="form-control">
+  <div class="alert alert-danger" *ngIf="cinmodel.invalid && cinmodel.touched">cin field is empty.</div>
   <label for="name">Name</label>
   <input #namemodel="ngModel" required id="name" type="text" ngModel name="name" class="form-control">
   <div class="alert alert-danger" *ngIf="namemodel.invalid && namemodel.touched">Name field is empty.</div>

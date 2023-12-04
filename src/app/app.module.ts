@@ -2,7 +2,7 @@ import { CanDeactivateGuard } from './cv-clean/add-cv/can-deactivate.guard';
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HighlightDirective } from "./directives/highlight.directive";
@@ -20,6 +20,7 @@ import { ProductComponent } from './product/product.component';
 import { ProductDisplayComponent } from './product/product-display/product-display.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { MatDialog, MatDialogModule } from "@angular/material/dialog";
   ],
   exports: [],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     CanDeactivateGuard
   ],
   bootstrap: [AppComponent],

@@ -34,6 +34,10 @@ export class AuthentificationService {
     this.refreshAuthState()
   }
 
+  getAuthorizationToken() {
+    return this.user.getValue()?.token.token ?? ""
+  }
+
   login(data: LoginData): Observable<boolean> {
     return this.http.post("https://apilb.tridevs.net/api/Users/login", data).pipe(
       map((response: any) => {
@@ -42,7 +46,7 @@ export class AuthentificationService {
           ttl: response.ttl,
         };
 
-        const user = new AuthUser(response.userId, data.email);
+        const user = new AuthUser(response.userId, data.email, authToken);
         localStorage.setItem('AuthToken', JSON.stringify(authToken));
         localStorage.setItem('AuthUser', JSON.stringify(user));
 
@@ -72,11 +76,12 @@ export class AuthentificationService {
 
   refreshAuthState() {
     const userFound = localStorage.getItem('AuthUser');
+    const token = localStorage.getItem('AuthToken');
     if (!userFound) {
       this.user.next(null);
     } else {
       const user: AuthUser = JSON.parse(userFound);
-      this.user.next(new AuthUser(user.id, user.email));
+      this.user.next(new AuthUser(user.id, user.email, JSON.parse(token!)));
     }
   }
 }
