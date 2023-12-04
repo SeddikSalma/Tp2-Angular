@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable, map, tap } from "rxjs";
-import { Product } from '../model/product'
+import { Product } from "./product.model";
 
 type GetProductResponseDto = {
   products: Product[];

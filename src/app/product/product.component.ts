@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { ProductService } from '../cv/services/product.service';
 import { tap } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { ProductService } from './product.service';
 
 @Component({
   selector: 'app-product',
