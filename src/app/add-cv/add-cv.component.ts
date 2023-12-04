@@ -1,6 +1,6 @@
 import { Personne } from './../cv/model/personne';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm, FormControl } from '@angular/forms';
+import { NgForm, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CvService } from '../cv/services/cv.service';
 import { CanComponentDeactivate } from './can-deactivate.guard';
@@ -27,20 +27,13 @@ export class AddCvComponent implements CanComponentDeactivate {
 
   }
 
-
   createcv(item: NgForm) {
     this.cvService.addPersonne(item.value);
     this.router.navigate(['cv']);
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    console.log(this.myForm)
-    console.log(this.myForm?.pending)
-    console.log(this.myForm?.submitted)
-    console.log(this.myForm?.pending)
-    setTimeout(() => { console.log(this.myForm?.submitted); console.log(this.myForm?.pending) }, 2000)
-    // TODO: Not done yet
-    if (!this.myForm?.pending && this.myForm?.dirty) {
+    if (!this.myForm?.submitted && this.myForm?.dirty) {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '300px',
       });
