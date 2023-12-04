@@ -14,14 +14,15 @@
 
         <a class="nav-link" aria-current="page" [routerLink]="['cv']" routerLinkActive="active text-primary"
           [routerLinkActiveOptions]="{exact: true}">Cv</a>
-        <a class="nav-link" aria-current="page" [routerLink]="['add']" routerLinkActive="active text-primary">Add CV</a>
+        <a class="nav-link" aria-current="page" [routerLink]="['cv', 'add']" routerLinkActive="active text-primary">Add
+          CV</a>
         <a class="nav-link" aria-current="page" [routerLink]="['cv', 'list']"
           routerLinkActive="active text-primary">list</a>
         <a class="nav-link" aria-current="page" [routerLink]="['merge']"
           routerLinkActive="active text-primary">merge</a>
         <a class="nav-link" aria-current="page" [routerLink]="['product']"
           routerLinkActive="active text-primary">Products</a>
-        <a class="nav-link" aria-current="page" [routerLink]="['login']" *ngIf="loggedOut$|async"
+        <a class="nav-link" aria-current="page" [routerLink]="['auth', 'login']" *ngIf="loggedOut$|async"
           routerLinkActive="active text-primary">Login</a>
         <button class="nav-item nav-link" (click)="logout()" *ngIf="loggedIn$|async">
           Logout
